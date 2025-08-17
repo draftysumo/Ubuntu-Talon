@@ -1,5 +1,5 @@
 # 🔧 Ubuntu-Talon
-**A one-time-use script to remove some Ubuntu company bloat, install useful packages + support for more file formats and replace Firefox with Brave.**
+**A one-time-use script that removes Ubuntu's forced snaps bloatware, installs useful packages with support for additional file formats like flatpaks, and replaces Firefox with Brave.**
 
 ## ❓ What does it do?
 - Updates system packages: Keeps the system secure and stable with the latest software versions and patches.
