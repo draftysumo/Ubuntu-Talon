@@ -1,10 +1,10 @@
 # 🔧 Ubuntu-Talon
-**A one-time-use script to remove some Ubuntu company bloat, install useful packages + support for more file formats and replace Firefox with Brave**
+**A one-time-use script to remove some Ubuntu company bloat, install useful packages + support for more file formats and replace Firefox with Brave.**
 
-# ⚠️ Disclaimer
+## ⚠️ Disclaimer
 **I am not responsible for any damages or distress caused by the program in the event that something goes wrong, like always, never install & run things from users online until you have done the necessary research.**
 
-# 🤓 How 2 Run
+## 🤓 How 2 Run
 FIRST: Make sure youre system meets these requirements (running the program without meeting these requirements will result in issues):
 - Ubuntu Long Term Service (LTS) Version 22.04 or higher
 - Fresh or almost fresh install of Ubuntu
