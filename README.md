@@ -5,16 +5,16 @@
 **I am not responsible for any damages or distress caused by the program in the event that something goes wrong, like always, never install & run things from users online until you have done the necessary research.**
 
 ## 🤓 How 2 Run
-FIRST: Make sure youre system meets these requirements (running the program without meeting these requirements will result in issues):
-- Ubuntu Long Term Service (LTS) Version 22.04 or higher
+**FIRST:** Make sure youre system meets these requirements (running the program without meeting these requirements will result in issues):
+- Ubuntu Version 22.04 (LTS) or higher (Must be a LTS version)
 - Fresh or almost fresh install of Ubuntu
 - Sudo apt-get/apt-get functions correctly
 
-SECOND: Install the .sh file and move it to your Home (root) directory.
+**SECOND:** Install the .sh file and move it to your Home (root) directory.
 
-THIRD: Right-click the .sh file and select "properties" then enable "run as executeable" if not already enabled.
+**THIRD:** Right-click the .sh file and select "properties" then enable "run as executeable" if not already enabled.
 
-LAST: Run this command in your terminal:
+**LAST:** Run this command in your terminal:
 `sudo ./ubuntu-talon.sh`
 
 **If you encounter any bugs please open an 'Issue' thank you :)**
