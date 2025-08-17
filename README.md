@@ -17,4 +17,8 @@ THIRD: Right-click the .sh file and select "properties" then enable "run as exec
 LAST: Run this command in your terminal:
 `sudo ./ubuntu-talon.sh`
 
-### If you encounter any bugs please open an 'Issue' thank you :)
+**If you encounter any bugs please open an 'Issue' thank you :)**
+
+---
+
+## Windows Talon By k0: https://github.com/ravendevteam/talon
