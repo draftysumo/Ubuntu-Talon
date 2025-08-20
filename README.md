@@ -1,4 +1,7 @@
+<img width="180" height="180" alt="bitmap" src="https://github.com/user-attachments/assets/ff7fc95f-9670-4647-9b10-a92297ed966d" />
+
 # 🔧 Ubuntu-Talon
+
 **A one-time-use script that removes Ubuntu's forced snaps bloatware, installs useful packages with support for additional file formats like flatpaks, and replaces Firefox with Brave.**
 
 ## ❓ What does it do?
