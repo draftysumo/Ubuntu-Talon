@@ -29,7 +29,7 @@ add-apt-repository -y ppa:teejee2008/timeshift
 apt update
 apt install -y timeshift
 
-echo "🦁 Installing Brave Browser..."
+echo "🦁 Installing Brave Browser via Flatpak..."
 curl -fsS https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg \
   | gpg --dearmor | tee /usr/share/keyrings/brave-browser-archive-keyring.gpg > /dev/null
 
@@ -37,17 +37,17 @@ echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] http
   | tee /etc/apt/sources.list.d/brave-browser-release.list
 
 apt update
-apt install -y brave-browser
+flatpak install -y flathub com.brave.Browser
 
 echo "⚡ Installing performance + GNOME tools..."
-apt install -y preload gnome-shell gnome-shell-extensions vlc
+apt install -y preload gnome-shell gnome-shell-extensions clapper
 
 echo "🗑️ Removing Firefox (if present)..."
 apt remove --purge -y firefox || true
 snap remove firefox || true
 
-echo "🧹 Running Brave Debloater..."
-curl -fsSL https://raw.githubusercontent.com/SebastianSzturo/brave-debloater/main/debloater.sh | bash || true
+echo "🧹 Running The New Brave Debloater..."
+bash <(curl -s https://raw.githubusercontent.com/MulesGaming/brave-debloatinator/main/brave-bullshitinator-linux-install.sh)
 
 echo "🧽 Cleaning up..."
 apt autoremove -y
