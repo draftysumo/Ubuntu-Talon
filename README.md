@@ -1,10 +1,10 @@
 <img width="180" height="180" alt="bitmap" src="https://github.com/user-attachments/assets/ff7fc95f-9670-4647-9b10-a92297ed966d" />
 
-# 🔧 Ubuntu-Talon
+# Ubuntu-Talon
 
 **A one-time-use script that removes Ubuntu's forced snaps bloatware, installs useful packages with support for additional file formats like flatpaks, and replaces Firefox with Brave.**
 
-## ❓ What does it do?
+## What does it do?
 - Updates system packages: Keeps the system secure and stable with the latest software versions and patches.
 - Removes snap-store: Makes the user experience easier and better by excluding confusing snap apps.
 - Installs Flatpak and Flathub repository: Enables access to a wide range of modern, sandboxed apps, offering flexibility and cross-platform compatibility.
@@ -14,21 +14,18 @@
 - Runs Brave Debloater: Removes unnecessary features from Brave, further boosting privacy and performance.
 - Cleans up unused packages: Saves disk space and keeps the system tidy by removing unneeded files.
 
-## ⚠️ Disclaimer
+## Disclaimer!
 **I am not responsible for any damages or distress caused by the program in the event that something goes wrong, like always, never install & run things from users online until you have done the necessary research.**
 
-## 🤓 How 2 Run
+## How To Run
 **FIRST:** Make sure youre system meets these requirements (running the program without meeting these requirements will result in issues):
 - Ubuntu Version 22.04 (LTS) or higher (Must be an LTS version)
 - Fresh or almost fresh install of Ubuntu
 - Sudo apt-get/apt-get functions correctly
 
-**SECOND:** Install the .sh file and move it to your Home (root) directory.
-
-**THIRD:** Right-click the .sh file and select "properties" then enable "run as executeable" if not already enabled.
-
-**LAST:** Run this command in your terminal:
-`sudo ./ubuntu-talon.sh`
+**LAST:**
+Run the following command:
+```bash <(curl -s https://raw.githubusercontent.com/draftysumo/repository/main/ubuntu-talon.sh) ```
 
 **If you encounter any bugs please open an 'Issue' thank you :)**
 
