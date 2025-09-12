@@ -27,6 +27,7 @@ Make sure youre system meets these requirements (running the program without mee
 
 ### THEN
 Run the following command:
+
 ```bash <(curl -s https://raw.githubusercontent.com/draftysumo/repository/main/ubuntu-talon.sh) ```
 
 **If you encounter any bugs please open an 'Issue' thank you :)**
