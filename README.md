@@ -1,4 +1,5 @@
-<img width="180" height="180" alt="bitmap" src="https://github.com/user-attachments/assets/ff7fc95f-9670-4647-9b10-a92297ed966d" />
+<img width="200" height="200" alt="bitmap" src="https://github.com/user-attachments/assets/8bcbfecf-c363-4ce0-beb6-8ec019fff1d4" />
+
 
 # Ubuntu-Talon
 
@@ -18,12 +19,13 @@
 **I am not responsible for any damages or distress caused by the program in the event that something goes wrong, like always, never install & run things from users online until you have done the necessary research.**
 
 ## How To Run
-**FIRST:** Make sure youre system meets these requirements (running the program without meeting these requirements will result in issues):
+### FIRST
+Make sure youre system meets these requirements (running the program without meeting these requirements will result in issues):
 - Ubuntu Version 22.04 (LTS) or higher (Must be an LTS version)
 - Fresh or almost fresh install of Ubuntu
 - Sudo apt-get/apt-get functions correctly
 
-**LAST:**
+### THEN
 Run the following command:
 ```bash <(curl -s https://raw.githubusercontent.com/draftysumo/repository/main/ubuntu-talon.sh) ```
 
