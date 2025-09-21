@@ -46,9 +46,6 @@ echo "🗑️ Removing Firefox (if present)..."
 apt remove --purge -y firefox || true
 snap remove firefox || true
 
-echo "🧹 Running The New Brave Debloater..."
-bash <(curl -s https://raw.githubusercontent.com/MulesGaming/brave-debloatinator/main/brave-bullshitinator-linux-install.sh)
-
 echo "🧽 Cleaning up..."
 apt autoremove -y
 apt clean
