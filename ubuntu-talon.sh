@@ -7,60 +7,63 @@ exec 2>&1
 
 # Check if running as root
 if [[ $EUID -ne 0 ]]; then
-  echo "This script must be run as root. Try: sudo $0"
+  echo "❌ This script must be run as root. Try: sudo $0"
   exit 1
 fi
 
+USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+
 echo "🔄 Updating system..."
 apt update && apt upgrade -y
-apt install -y curl jq
+apt install -y curl jq flatpak gnome-software gnome-software-plugin-flatpak preload gnome-shell gnome-shell-extensions software-properties-common
 
-echo "🧹 Removing snap-store (if present)..."
-snap remove --purge snap-store || true
+# Install GNOME Shell Extension Manager
+echo "🔧 Installing GNOME Shell Extension Manager..."
+apt install -y gnome-shell-extension-manager
 
-echo "📦 Installing Flatpak + GNOME Software integration..."
-apt install -y flatpak gnome-software gnome-software-plugin-flatpak
-
-echo "🌐 Adding Flathub repository..."
+echo "🌐 Setting up Flatpak and Flathub..."
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+echo "🗑️ Removing Firefox (Snap and APT, if present)..."
+snap list | grep -q firefox && snap remove --purge firefox || echo "No Firefox snap installed."
+apt list --installed 2>/dev/null | grep -q firefox && apt remove --purge -y firefox || echo "No Firefox apt package installed."
+rm -rf /etc/firefox /usr/lib/firefox /usr/lib/firefox-addons /usr/share/firefox /usr/share/firefox-addons
+
+echo "🧹 Removing Snap Store (if present)..."
+snap list | grep -q snap-store && snap remove --purge snap-store || echo "No Snap Store found."
 
 echo "⏳ Installing Timeshift..."
 add-apt-repository -y ppa:teejee2008/timeshift
 apt update
 apt install -y timeshift
 
-echo "🦁 Installing Brave Browser via Flatpak..."
-curl -fsS https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg \
-  | gpg --dearmor | tee /usr/share/keyrings/brave-browser-archive-keyring.gpg > /dev/null
-
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com stable main" \
-  | tee /etc/apt/sources.list.d/brave-browser-release.list
-
+echo "🔍 Installing FSearch..."
+add-apt-repository -y ppa:christian-boxdoerfer/fsearch-stable
 apt update
-flatpak install -y flathub com.brave.Browser
+apt install -y fsearch
 
-echo "⚡ Installing performance + GNOME tools..."
-apt install -y preload gnome-shell gnome-shell-extensions clapper fsearch
+echo "🦁 Installing Brave Browser via script..."
+curl -fsS https://dl.brave.com/install.sh | sh
 
-echo "🗑️ Removing Firefox (if present)..."
-apt remove --purge -y firefox || true
-snap remove firefox || true
-
-echo "🧽 Cleaning up..."
-apt autoremove -y
-apt clean
+echo "🎬 Installing Clapper via Flatpak..."
+sudo -u "$SUDO_USER" flatpak install -y --noninteractive flathub com.github.rafostar.Clapper
 
 echo "🚀 Running Brave debloater..."
 
-APP_ID="com.brave.Browser"
-USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
-VAR_APP_DIR="${USER_HOME}/.var/app/${APP_ID}"
-
-PREF_PATH="${VAR_APP_DIR}/config/BraveSoftware/Brave-Browser/Default/Preferences"
+PREF_PATH="${USER_HOME}/.config/BraveSoftware/Brave-Browser/Default/Preferences"
 PROFILE_DIR=$(dirname "$PREF_PATH")
 
+# Launch Brave to create the profile (in background)
 if [[ ! -f "$PREF_PATH" ]]; then
-  echo "⚠️  Brave Preferences not found at expected path: $PREF_PATH"
+  echo "⚠️ Brave Preferences not found, launching Brave once to create profile..."
+  sudo -u "$SUDO_USER" brave-browser --no-first-run --headless --disable-gpu about:blank &
+  sleep 5
+  pkill -u "$SUDO_USER" -f brave || true
+  sleep 2
+fi
+
+if [[ ! -f "$PREF_PATH" ]]; then
+  echo "❌ Still couldn't find Brave Preferences at: $PREF_PATH"
   echo "Skipping Brave debloat step."
 else
   echo "✅ Found Brave Preferences at: $PREF_PATH"
@@ -72,7 +75,6 @@ else
   cp -a "$PROFILE_DIR" "$BACKUP_DIR/"
 
   # Kill Brave if it's running
-  sudo -u "$SUDO_USER" flatpak kill "$APP_ID" >/dev/null 2>&1 || true
   pkill -u "$SUDO_USER" -f brave || true
   sleep 1
 
@@ -119,4 +121,8 @@ else
   echo "🦾 Brave debloat complete! Backup stored at: $BACKUP_DIR"
 fi
 
-echo "✅ Setup complete! A full log is saved in setup.log"
+echo "🧽 Final system cleanup..."
+apt autoremove -y
+apt clean
+
+echo "✅ Setup complete! Full log saved in setup.log"
