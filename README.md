@@ -36,7 +36,7 @@ Make sure your system meets these requirements (running the program without meet
 ### THEN
 Run the following command:
 
-```curl -fsSL https://raw.githubusercontent.com/draftysumo/Ubuntu-Talon/refs/heads/main/ubuntu-talon.sh | sudo bash```
+```sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Ubuntu-Talon/refs/heads/main/ubuntu-talon.sh)"```
 
 If you encounter any bugs, please open an 'Issue' on the GitHub repository. Thank you! :)
 
