@@ -24,10 +24,43 @@ apt install -y gnome-shell-extension-manager
 echo "🌐 Setting up Flatpak and Flathub..."
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-echo "🗑️ Removing Firefox (Snap and APT, if present)..."
-snap list | grep -q firefox && snap remove --purge firefox || echo "No Firefox snap installed."
-apt list --installed 2>/dev/null | grep -q firefox && apt remove --purge -y firefox || echo "No Firefox apt package installed."
-rm -rf /etc/firefox /usr/lib/firefox /usr/lib/firefox-addons /usr/share/firefox /usr/share/firefox-addons
+# Ask about Firefox replacement
+read -rp "🌐 Do you want to replace Firefox? (y/n): " replace_ff
+if [[ "$replace_ff" =~ ^[Yy]$ ]]; then
+  echo "Choose a replacement browser:"
+  select browser_choice in "Brave" "LibreWolf"; do
+    case $browser_choice in
+      Brave)
+        echo "🗑️ Removing Firefox..."
+        snap list | grep -q firefox && snap remove --purge firefox || echo "No Firefox snap installed."
+        apt list --installed 2>/dev/null | grep -q firefox && apt remove --purge -y firefox || echo "No Firefox apt package installed."
+        rm -rf /etc/firefox /usr/lib/firefox /usr/lib/firefox-addons /usr/share/firefox /usr/share/firefox-addons
+
+        echo "🦁 Installing Brave Browser via script..."
+        curl -fsS https://dl.brave.com/install.sh | sh
+        break
+        ;;
+      LibreWolf)
+        echo "🗑️ Removing Firefox..."
+        snap list | grep -q firefox && snap remove --purge firefox || echo "No Firefox snap installed."
+        apt list --installed 2>/dev/null | grep -q firefox && apt remove --purge -y firefox || echo "No Firefox apt package installed."
+        rm -rf /etc/firefox /usr/lib/firefox /usr/lib/firefox-addons /usr/share/firefox /usr/share/firefox-addons
+
+        echo "🦊 Installing LibreWolf via Flatpak..."
+
+        # Install LibreWolf from Flatpak (Flathub)
+        flatpak install -y --noninteractive flathub io.gitlab.librewolf-community
+
+        break
+        ;;
+      *)
+        echo "❌ Invalid option. Choose 1 or 2."
+        ;;
+    esac
+  done
+else
+  echo "✅ Keeping Firefox."
+fi
 
 echo "🧹 Removing Snap Store (if present)..."
 snap list | grep -q snap-store && snap remove --purge snap-store || echo "No Snap Store found."
@@ -42,84 +75,42 @@ add-apt-repository -y ppa:christian-boxdoerfer/fsearch-stable
 apt update
 apt install -y fsearch
 
-echo "🦁 Installing Brave Browser via script..."
-curl -fsS https://dl.brave.com/install.sh | sh
-
 echo "🎬 Installing Clapper via Flatpak..."
 sudo -u "$SUDO_USER" flatpak install -y --noninteractive flathub com.github.rafostar.Clapper
 
-echo "🚀 Running Brave debloater..."
-
-PREF_PATH="${USER_HOME}/.config/BraveSoftware/Brave-Browser/Default/Preferences"
-PROFILE_DIR=$(dirname "$PREF_PATH")
-
-# Launch Brave to create the profile (in background)
-if [[ ! -f "$PREF_PATH" ]]; then
-  echo "⚠️ Brave Preferences not found, launching Brave once to create profile..."
-  sudo -u "$SUDO_USER" brave-browser --no-first-run --headless --disable-gpu about:blank &
-  sleep 5
-  pkill -u "$SUDO_USER" -f brave || true
-  sleep 2
-fi
-
-if [[ ! -f "$PREF_PATH" ]]; then
-  echo "❌ Still couldn't find Brave Preferences at: $PREF_PATH"
-  echo "Skipping Brave debloat step."
-else
-  echo "✅ Found Brave Preferences at: $PREF_PATH"
-
-  echo "📦 Backing up Brave profile..."
-  TS=$(date +%Y%m%d-%H%M%S)
-  BACKUP_DIR="${USER_HOME}/brave-debloat-backup-${TS}"
-  mkdir -p "$BACKUP_DIR"
-  cp -a "$PROFILE_DIR" "$BACKUP_DIR/"
-
-  # Kill Brave if it's running
-  pkill -u "$SUDO_USER" -f brave || true
-  sleep 1
-
-  TMP_PREF=$(mktemp)
-  cp "$PREF_PATH" "$TMP_PREF"
-
-  echo "🧠 Applying Brave debloat preferences..."
-
-  declare -a PREF_CHANGES=(
-    "brave.rewards.enabled false"
-    "brave.rewards.ac.enabled false"
-    "brave.rewards.banner_shown false"
-    "brave.rewards.show_notification false"
-    "brave.wallets.ui.enabled false"
-    "brave.crypto_wallets.enabled false"
-    "brave.ai.enabled false"
-    "brave.leo.enabled false"
-    "first_run false"
-    "session.restore_on_startup 0"
-    "brave.onboarding_shown true"
-    "metrics.reporting_enabled false"
-    "brave.metrics_reporting_enabled false"
-    "crash_reporter_enabled false"
-    "safebrowsing.enabled false"
-    "brave.ntp.ads.enabled false"
-    "brave.sponsored_images.enabled false"
-    "browser.disable_component_update true"
-  )
-
-  for kv in "${PREF_CHANGES[@]}"; do
-    key="${kv%% *}"
-    val="${kv#* }"
-    jq ".$key = $val" "$TMP_PREF" > "${TMP_PREF}.new" 2>/dev/null && mv "${TMP_PREF}.new" "$TMP_PREF" || true
-  done
-
-  cp "$TMP_PREF" "$PREF_PATH"
-  chown "$SUDO_USER":"$SUDO_USER" "$PREF_PATH"
-
-  # Optional: disable extensions
-  if [[ -d "$(dirname "$PREF_PATH")/Extensions" ]]; then
-    mv "$(dirname "$PREF_PATH")/Extensions" "$(dirname "$PREF_PATH")/Extensions.disabled" || true
-  fi
-
-  echo "🦾 Brave debloat complete! Backup stored at: $BACKUP_DIR"
-fi
+# Ask about Office suite
+echo "📂 Choose an Office suite to install:"
+select office_choice in "LibreOffice" "OnlyOffice"; do
+  case $office_choice in
+    LibreOffice)
+      echo "📦 Installing LibreOffice..."
+      if flatpak search org.libreoffice.LibreOffice | grep -q LibreOffice; then
+        sudo -u "$SUDO_USER" flatpak install -y --noninteractive flathub org.libreoffice.LibreOffice
+      else
+        apt install -y libreoffice
+      fi
+      break
+      ;;
+    OnlyOffice)
+      echo "📦 Installing OnlyOffice..."
+      if flatpak search org.onlyoffice.desktopeditors | grep -q ONLYOFFICE; then
+        sudo -u "$SUDO_USER" flatpak install -y --noninteractive flathub org.onlyoffice.desktopeditors
+      else
+        # Download and install .deb if Flatpak isn't available
+        echo "⚠️ Flatpak version not found. Installing .deb version..."
+        TMP_DIR=$(mktemp -d)
+        cd "$TMP_DIR"
+        wget https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb
+        apt install -y ./onlyoffice-desktopeditors_amd64.deb
+        cd - && rm -rf "$TMP_DIR"
+      fi
+      break
+      ;;
+    *)
+      echo "❌ Invalid option. Choose 1 or 2."
+      ;;
+  esac
+done
 
 echo "🧽 Final system cleanup..."
 apt autoremove -y
