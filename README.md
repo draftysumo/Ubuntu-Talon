@@ -31,14 +31,12 @@ Make sure your system meets these requirements (running the program without meet
 
 - Ubuntu Version 22.04 (LTS) or higher (Must be an LTS version)
 - Fresh or almost fresh install of Ubuntu
-- Sudo privileges to run the script
+- Curl installed (install by running ```sudo apt install curl```)
 
 ### THEN
-Run the following commands:
+Run the following command:
 
-```sudo apt install curl```
-
-```bash <(curl -s https://raw.githubusercontent.com/draftysumo/repository/main/ubuntu-talon.sh)```
+```sudo bash <(curl -s https://raw.githubusercontent.com/draftysumo/repository/main/ubuntu-talon.sh)```
 
 If you encounter any bugs, please open an 'Issue' on the GitHub repository. Thank you! :)
 
