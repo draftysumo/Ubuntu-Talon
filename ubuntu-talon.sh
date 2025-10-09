@@ -13,7 +13,7 @@ fi
 
 USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 
-echo "🔄 Updating system..."
+echo "🔄 Updating system & installing libraries..."
 apt update && apt upgrade -y
 apt install -y curl jq flatpak gnome-software gnome-software-plugin-flatpak preload gnome-shell gnome-shell-extensions software-properties-common libvlc-dev ffmpeg
 
