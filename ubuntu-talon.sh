@@ -15,7 +15,7 @@ USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 
 echo "🔄 Updating system..."
 apt update && apt upgrade -y
-apt install -y curl jq flatpak gnome-software gnome-software-plugin-flatpak preload gnome-shell gnome-shell-extensions software-properties-common
+apt install -y curl jq flatpak gnome-software gnome-software-plugin-flatpak preload gnome-shell gnome-shell-extensions software-properties-common libvlc-dev ffmpeg
 
 # Install GNOME Shell Extension Manager
 echo "🔧 Installing GNOME Shell Extension Manager..."
