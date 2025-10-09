@@ -15,12 +15,6 @@ A one-time-use script to debloat and improve Ubuntu automatically with better pr
 - Cleans up unused packages: Frees disk space and optimizes performance by removing leftover and unnecessary dependencies.
 - Installs Office Suite: Prompts the user to install either LibreOffice or OnlyOffice and provides installation via Flatpak or APT (depending on availability).
 
-## Key Features:
-- Full replacement of Firefox with Brave or LibreWolf (if wanted)
-- Installs Flatpak applications like Clapper (media player) and FSearch (file search tool) from Flathub.
-- Offers a selection between LibreOffice or OnlyOffice for office suite functionality.
-- Installs Timeshift for automatic system backups and restores.
-
 ## Disclaimer!
 I am not responsible for any damages or distress caused by the program in the event that something goes wrong, like always, never install & run things from users online until you have done the necessary research.
 
