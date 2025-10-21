@@ -5,15 +5,14 @@
 
 # Ubuntu-Talon
 
-### A one-time-use script to debloat, improve & update fresh or almost fresh Ubuntu LTS installs.
-**It also optionally installs better default browsers & office suits.**
-
-### [👉 Run](#how-to-run)
-### [👷 Contribute](#how-to-run)
+A one-time-use script to debloat, improve & update fresh or almost fresh Ubuntu LTS installs. It also optionally installs better default browsers & office suits.
 
 <div align="left">
 
 ---
+
+## Disclaimer!
+I am not responsible for any damages or distress caused by the program in the event that something goes wrong, like always, never install & run things from users online until you have done the necessary research.
 
 ## What does it do?
 - Updates system packages.
@@ -24,9 +23,6 @@
 - Installs productivity utities-Preload & FSearch.
 - Cleans up unused packages.
 - Installs optional Office Suites like LibreOffice or OnlyOffice, decided by the user.
-
-## Disclaimer!
-I am not responsible for any damages or distress caused by the program in the event that something goes wrong, like always, never install & run things from users online until you have done the necessary research.
 
 ## How To Run
 
@@ -43,5 +39,7 @@ Run the following command:
 ```sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Ubuntu-Talon/refs/heads/main/ubuntu-talon.sh)"```
 
 If you encounter any bugs, please open an 'Issue' on the GitHub repository. Thank you! :)
+
+---
 
 **Windows Talon** By k0: https://github.com/ravendevteam/talon
