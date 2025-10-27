@@ -115,5 +115,6 @@ done
 echo "🧽 Final system cleanup..."
 apt autoremove -y
 apt clean
+apt autoclean -y
 
 echo "✅ Setup complete! Full log saved in setup.log"
