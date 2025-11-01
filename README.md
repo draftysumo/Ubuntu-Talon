@@ -23,6 +23,7 @@ I am not responsible for any damages or distress caused by the program in the ev
 - Installs productivity utities-Preload & FSearch.
 - Cleans up unused packages.
 - Installs optional Office Suites like LibreOffice or OnlyOffice, decided by the user.
+- Installs optional coding languages & Visual Studio Code, decided by the user.
 
 ## How To Run
 
