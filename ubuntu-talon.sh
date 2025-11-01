@@ -47,10 +47,7 @@ if [[ "$replace_ff" =~ ^[Yy]$ ]]; then
         rm -rf /etc/firefox /usr/lib/firefox /usr/lib/firefox-addons /usr/share/firefox /usr/share/firefox-addons
 
         echo "🦊 Installing LibreWolf via Flatpak..."
-
-        # Install LibreWolf from Flatpak (Flathub)
         flatpak install -y --noninteractive flathub io.gitlab.librewolf-community
-
         break
         ;;
       *)
@@ -78,6 +75,30 @@ apt install -y fsearch
 echo "🎬 Installing Clapper via Flatpak..."
 sudo -u "$SUDO_USER" flatpak install -y --noninteractive flathub com.github.rafostar.Clapper
 
+# Ask about developer tools
+echo "💻 Developer Tools Installation"
+read -rp "Would you like to install Node.js & npm? (y/n): " install_node
+if [[ "$install_node" =~ ^[Yy]$ ]]; then
+  echo "📦 Installing Node.js & npm..."
+  curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+  apt install -y nodejs
+fi
+
+read -rp "Would you like to install Python? (y/n): " install_python
+if [[ "$install_python" =~ ^[Yy]$ ]]; then
+  echo "🐍 Installing Python..."
+  apt install -y python3 python3-pip python3-venv
+fi
+
+read -rp "Would you like to install Visual Studio Code? (y/n): " install_vscode
+if [[ "$install_vscode" =~ ^[Yy]$ ]]; then
+  echo "🧩 Installing Visual Studio Code..."
+  curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/packages.microsoft.gpg
+  echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list
+  apt update
+  apt install -y code
+fi
+
 # Ask about Office suite
 echo "📂 Choose an Office suite to install:"
 select office_choice in "LibreOffice" "OnlyOffice"; do
@@ -96,7 +117,6 @@ select office_choice in "LibreOffice" "OnlyOffice"; do
       if flatpak search org.onlyoffice.desktopeditors | grep -q ONLYOFFICE; then
         sudo -u "$SUDO_USER" flatpak install -y --noninteractive flathub org.onlyoffice.desktopeditors
       else
-        # Download and install .deb if Flatpak isn't available
         echo "⚠️ Flatpak version not found. Installing .deb version..."
         TMP_DIR=$(mktemp -d)
         cd "$TMP_DIR"
