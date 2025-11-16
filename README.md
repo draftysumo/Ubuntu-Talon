@@ -32,7 +32,7 @@ Make sure your system meets these requirements (running the program without meet
 
 - (Ubuntu) Ubuntu Version 22.04 (LTS) or higher (Must be an LTS version)
 - (Mint) Linux Mint 22.2 (Cinnamon)
-- Fresh or almost fresh install of the dirsto of choice
+- Fresh or almost fresh install of the distro of choice
 - Curl installed (install by running ```sudo apt install curl```)
 
 ### THEN
