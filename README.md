@@ -48,6 +48,11 @@ sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Linux-Ta
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Linux-Talons/refs/heads/main/Mint-Talon.sh)"
 ```
 
+**If you are on Ubuntu and only want the more technical changes try the lite script:**
+```
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Linux-Talons/refs/heads/main/Ubuntu-Talon-Lite.sh)"
+```
+
 If you encounter any bugs, please open an 'Issue' on the GitHub repository. Thank you! :)
 
 ---
