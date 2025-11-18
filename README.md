@@ -3,9 +3,9 @@
 <img width="240" height="240" alt="bitmap" src="https://github.com/user-attachments/assets/0f9e2d28-3c86-45dc-9238-efe537d68306" />
 
 
-# Linux-Talons
+# Ubuntu Talons
 
-One-time-use scripts to debloat, improve & update fresh or almost fresh Linux Distro LTS installs. They also optionally installs better default browsers & office suits.
+One-time-use scripts to debloat, improve & update fresh or almost fresh Ubuntu LTS installs. They also optionally installs better default browsers & office suits.
 
 <div align="left">
 
@@ -16,7 +16,7 @@ I am not responsible for any damages or distress caused by the program in the ev
 
 ## What do they do?
 - Updates system packages.
-- (Ubuntu) Removes Snap Store & Snaps to simplify the system and reduce bloat by removing unnecessary Snap components.
+- Removes Snap Store & Snaps to simplify the system and reduce bloat by removing unnecessary Snap components.
 - Installs Flatpak and Flathub repository making it easier to install software securely and without Snap.
 - Installs must have apps/packages like Timeshift for backups, VLC for video formats & more.
 - Replaces Firefox with Brave or LibreWolf if desired for better security.
@@ -30,9 +30,7 @@ I am not responsible for any damages or distress caused by the program in the ev
 ### FIRST
 Make sure your system meets these requirements (running the program without meeting these requirements will result in issues):
 
-- (Ubuntu) Ubuntu Version 22.04 (LTS) or higher (Must be an LTS version)
-- (Mint) Linux Mint 22.2 (Cinnamon)
-- Fresh or almost fresh install of the distro of choice
+- Fresh or almost fresh install of Ubuntu Version 22.04 (LTS) or higher (Must be an LTS version)
 - Curl installed (install by running ```sudo apt install curl```)
 
 ### THEN
@@ -41,11 +39,6 @@ Run the following command:
 **Ubuntu-Talon:**
 ```
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Linux-Talons/refs/heads/main/Ubuntu-Talon.sh)"
-```
-
-**Mint-Talon:**
-```
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Linux-Talons/refs/heads/main/Mint-Talon.sh)"
 ```
 
 **If you are on Ubuntu and only want the more technical changes try the lite script:**
