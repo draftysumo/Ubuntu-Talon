@@ -43,11 +43,6 @@ I am not responsible for any damages or distress caused by the program in the ev
 ### Office Suite Installation:
 - Installs either LibreOffice or OnlyOffice, depending on user choice.
 
-### .desktop Entry Modifications (Drafty preset only):
-- Renames desktop entries for synaptic, gparted, gedit, software-properties-gtk, and update-manager to more user-friendly names.
-
-- Updates the desktop database for new names.
-
 ### System Cleanup:
 - Removes unnecessary packages and cleans up temporary files.
 
