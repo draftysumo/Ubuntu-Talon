@@ -75,7 +75,7 @@ sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Linux-Ta
 
 **Ubuntu-Talon (Drafty preset):**
 ```
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Linux-Talons/refs/heads/main/Ubuntu-Talon-DraftyPreset.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Linux-Talons/refs/heads/main/Ubuntu-Talon-Drafty.sh)"
 ```
 
 If you encounter any bugs, please open an 'Issue' on the GitHub repository. Thank you! :)
