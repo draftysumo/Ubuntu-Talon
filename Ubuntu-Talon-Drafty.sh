@@ -132,49 +132,10 @@ select office_choice in "LibreOffice" "OnlyOffice"; do
   esac
 done
 
-# New packages and .desktop changes
+# Package changes
 echo "🛠️ Removing unwanted packages..."
 sudo apt remove -y gnome-clocks gdisk
 sudo apt install -y synaptic gparted
-
-# Synaptic > "Packages Manager"
-echo "🔧 Updating Synaptic desktop entry..."
-mkdir -p ~/.local/share/applications
-cp /usr/share/applications/synaptic.desktop ~/.local/share/applications/
-sed -i 's/^Name=.*/Name=Packages Manager/' ~/.local/share/applications/synaptic.desktop
-update-desktop-database ~/.local/share/applications/
-
-# GParted > "Disk Management"
-echo "🔧 Updating GParted desktop entry..."
-mkdir -p ~/.local/share/applications
-cp /usr/share/applications/gparted.desktop ~/.local/share/applications/
-sed -i 's/^Name=.*/Name=Disk Management/' ~/.local/share/applications/gparted.desktop
-update-desktop-database ~/.local/share/applications/
-
-# Text Editor > "Notepad"
-echo "🔧 Updating Text Editor desktop entry..."
-mkdir -p ~/.local/share/applications
-cp /usr/share/applications/org.gnome.gedit.desktop ~/.local/share/applications/
-sed -i 's/^Name=.*/Name=Notepad/' ~/.local/share/applications/org.gnome.gedit.desktop
-sed -i 's/^Name\[.*\]=.*/Name[en_US]=Notepad/' ~/.local/share/applications/org.gnome.gedit.desktop
-update-desktop-database ~/.local/share/applications/
-
-# Software & Updates > Configure Updates & Sources
-echo "🔧 Updating Software & Updates desktop entry..."
-mkdir -p ~/.local/share/applications
-cp /usr/share/applications/software-properties-gtk.desktop ~/.local/share/applications/
-sed -i 's/^Name=.*/Name=Configure Updates \& Sources/' ~/.local/share/applications/software-properties-gtk.desktop
-sed -i 's/^GenericName=.*/GenericName=Configure Updates \& Sources/' ~/.local/share/applications/software-properties-gtk.desktop
-sed -i 's/^Name\[.*\]=.*/Name[en_US]=Configure Updates \& Sources/' ~/.local/share/applications/software-properties-gtk.desktop
-update-desktop-database ~/.local/share/applications/
-
-# Software Updater > "System Updater"
-echo "🔧 Updating Software Updater desktop entry..."
-mkdir -p ~/.local/share/applications
-cp /usr/share/applications/update-manager.desktop ~/.local/share/applications/
-sed -i 's/^Name=.*/Name=System Updater/' ~/.local/share/applications/update-manager.desktop
-sed -i 's/^Name\[.*\]=.*/Name[en_US]=System Updater/' ~/.local/share/applications/update-manager.desktop
-update-desktop-database ~/.local/share/applications/
 
 # Final system cleanup
 echo "🧽 Final system cleanup..."
