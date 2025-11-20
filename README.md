@@ -15,25 +15,23 @@ One-time-use script to debloat, improve & update fresh or almost fresh Ubuntu LT
 I am not responsible for any damages or distress caused by the program in the event that something goes wrong, like always, never install & run things from users online until you have done the necessary research.
 
 ## What does it do?
-### Package Management:
-- Updates the system ```(apt update && apt upgrade)```.
+### System Update & Base Packages
 
-- Installs essential libraries and tools (curl, jq, flatpak, gnome-shell, etc.).
+- Updates package lists and upgrades all installed packages ```(apt update && apt upgrade -y)```.
 
-- Removes unwanted packages (gnome-clocks, gdisk).
+- Installs core libraries and tools:
+```curl, jq, flatpak, gnome-software, gnome-shell, preload, ffmpeg, libvlc-dev, software-properties-common, stacer (replacing synaptic).```
 
-- Installs synaptic (Package Manager) and gparted (Disk Management).
+- Installs GNOME Shell Extension Manager.
 
-- GNOME and Flatpak Setup:
+- Adds Flathub repository if it’s not already added.
 
-- Installs the GNOME Shell Extension Manager.
+### Firefox Replacement
 
-- Configures Flatpak and adds the Flathub repository.
+- Asks if you want to replace Firefox.
 
-### Browser Replacement:
-- Optionally replaces Firefox with either Brave or LibreWolf.
-
-- Removes Firefox if chosen.
+> Options: Brave or LibreWolf.
+If chosen, Firefox is fully removed, and the chosen browser is installed.
 
 ### Developer Tools:
 - Optionally installs Node.js, npm, and Python.
@@ -45,8 +43,6 @@ I am not responsible for any damages or distress caused by the program in the ev
 
 ### System Cleanup:
 - Removes unnecessary packages and cleans up temporary files.
-
-- Timeshift and FSearch Installation:
 
 - Installs Timeshift (system backup tool) and FSearch (file search tool).
 
