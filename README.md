@@ -24,5 +24,10 @@ One-time use script to setup a fresh Ubuntu LTS (22+) install the way I endorce 
 
 ## Usage
 ### Paste into terminal:
-   ```bash
+```bash
    sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Ubuntu-Talon/refs/heads/main/Ubuntu-Talon.sh)"
+```
+### Or paste this to run the script and install the apps I like to use (this version of the script is knida just for me to use when setting up my own machines)
+```bash
+   sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/draftysumo/Ubuntu-Talon/refs/heads/main/Ubuntu-Talon-Drafty.sh)"
+```
