@@ -11,7 +11,7 @@ exec 2>&1
 # Root Check
 # ===============================
 if [[ $EUID -ne 0 ]]; then
-  echo "❌ This script must be run as root. Try: sudo $0"
+  echo "❌ Must be run as root. Try: sudo $0"
   exit 1
 fi
 
@@ -24,7 +24,7 @@ remove_firefox() {
     echo "🗑️ Removing Firefox..."
     snap list | grep -q firefox && snap remove --purge firefox || true
     apt list --installed 2>/dev/null | grep -q firefox && apt remove --purge -y firefox || true
-    rm -rf /etc/firefox /usr/lib/firefox /usr/lib/firefox-addons /usr/share/firefox /usr/share/firefox-addons
+    rm -rf /etc/firefox /usr/lib/firefox /usr/share/firefox
 }
 
 install_flatpak_app() {
@@ -35,41 +35,40 @@ install_flatpak_app() {
 # ===============================
 # System Update & Base Libraries
 # ===============================
-echo "🔄 Updating system & installing base packages..."
+echo "🔄 Updating system & installing packages..."
 apt update && apt upgrade -y
-apt install -y curl jq flatpak gnome-software gnome-software-plugin-flatpak preload \
-gnome-shell gnome-shell-extensions software-properties-common libvlc-dev ffmpeg stacer
+apt install -y curl jq flatpak gnome-software gnome-shell gnome-shell-extensions software-properties-common libvlc-dev ffmpeg stacer
 
 # GNOME Shell Extension Manager
-echo "🔧 Installing GNOME Shell Extension Manager..."
+echo "🔧 Installing GNOME Extension Manager..."
 apt install -y gnome-shell-extension-manager
 
 # Flatpak & Flathub
-echo "🌐 Setting up Flatpak and Flathub..."
+echo "🌐 Setting up Flatpak & Flathub..."
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # ===============================
 # Firefox Replacement
 # ===============================
-read -rp "🌐 Do you want to replace Firefox? (y/n): " replace_ff
+read -rp "Replace Firefox? (y/n): " replace_ff
 if [[ "$replace_ff" =~ ^[Yy]$ ]]; then
-  echo "Choose a replacement browser:"
+  echo "Choose a browser:"
   select browser_choice in "Brave" "LibreWolf"; do
     case $browser_choice in
       Brave)
         remove_firefox
-        echo "🦁 Installing Brave Browser..."
+        echo "🦁 Installing Brave..."
         curl -fsS https://dl.brave.com/install.sh | sh
         break
         ;;
       LibreWolf)
         remove_firefox
-        echo "🦊 Installing LibreWolf via Flatpak..."
+        echo "🦊 Installing LibreWolf..."
         install_flatpak_app "io.gitlab.librewolf-community"
         break
         ;;
       *)
-        echo "❌ Invalid option. Choose 1 or 2."
+        echo "❌ Invalid option."
         ;;
     esac
   done
@@ -80,38 +79,28 @@ fi
 # ===============================
 # Remove Snap Store
 # ===============================
-echo "🧹 Removing Snap Store (if present)..."
-snap list | grep -q snap-store && snap remove --purge snap-store || echo "No Snap Store found."
+echo "🧹 Removing Snap Store..."
+snap list | grep -q snap-store && snap remove --purge snap-store || echo "No Snap Store."
 
 # ===============================
-# Timeshift Installation
+# Remove GNOME Document Viewer
 # ===============================
-echo "⏳ Installing Timeshift..."
-add-apt-repository -y ppa:teejee2008/timeshift
-apt update
-apt install -y timeshift
+echo "🗑️ Removing GNOME Document Viewer..."
+apt remove -y evince || true
 
 # ===============================
-# FSearch Installation
+# Install Celluloid Media Player
 # ===============================
-echo "🔍 Installing FSearch..."
-add-apt-repository -y ppa:christian-boxdoerfer/fsearch-stable
-apt update
-apt install -y fsearch
-
-# ===============================
-# Clapper via Flatpak
-# ===============================
-echo "🎬 Installing Clapper via Flatpak..."
-install_flatpak_app "com.github.rafostar.Clapper"
+echo "🎬 Installing Celluloid..."
+install_flatpak_app "org.gnome.Celluloid"
 
 # ===============================
 # Developer Tools
 # ===============================
-echo "💻 Developer Tools Installation"
-read -rp "Install Node.js & npm? (y/n): " install_node
+echo "💻 Installing Developer Tools..."
+read -rp "Install Node.js? (y/n): " install_node
 if [[ "$install_node" =~ ^[Yy]$ ]]; then
-  echo "📦 Installing Node.js & npm..."
+  echo "📦 Installing Node.js..."
   curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
   apt install -y nodejs
 fi
@@ -122,7 +111,7 @@ if [[ "$install_python" =~ ^[Yy]$ ]]; then
   apt install -y python3 python3-pip python3-venv
 fi
 
-read -rp "Install Visual Studio Code? (y/n): " install_vscode
+read -rp "Install VS Code? (y/n): " install_vscode
 if [[ "$install_vscode" =~ ^[Yy]$ ]]; then
   echo "🧩 Installing Visual Studio Code..."
   curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/packages.microsoft.gpg
@@ -134,7 +123,7 @@ fi
 # ===============================
 # Office Suite
 # ===============================
-echo "📂 Choose an Office suite to install:"
+echo "📂 Choose Office suite:"
 select office_choice in "LibreOffice" "OnlyOffice"; do
   case $office_choice in
     LibreOffice)
@@ -152,7 +141,7 @@ select office_choice in "LibreOffice" "OnlyOffice"; do
       break
       ;;
     *)
-      echo "❌ Invalid option. Choose 1 or 2."
+      echo "❌ Invalid option."
       ;;
   esac
 done
@@ -167,9 +156,9 @@ apt install -y gpart
 # ===============================
 # Final Cleanup
 # ===============================
-echo "🧽 Final system cleanup..."
+echo "🧽 Cleanup..."
 apt autoremove -y
 apt clean
 apt autoclean -y
 
-echo "✅ Setup complete! Full log saved in setup.log"
+echo "✅ Setup complete! Log saved in setup.log"
