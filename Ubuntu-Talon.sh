@@ -37,11 +37,9 @@ install_flatpak_app() {
 # ===============================
 remove_snapd_and_snaps() {
     echo "🧹 Removing Snapd and all snaps..."
-    # Remove all snaps installed on the system
-    snap list | awk '{if(NR>1) print $1}' | xargs -I {} snap remove --purge {}
     
-    # Now remove snapd itself
     apt remove --purge -y snapd
+    apt remove gnome-software-plugin-snap
     # Clean up snap directories if any remain
     rm -rf /var/cache/snapd /snap
 }
@@ -109,7 +107,7 @@ apt remove -y evince || true
 # Install Celluloid Media Player
 # ===============================
 echo "🎬 Installing Celluloid..."
-flatpak install celluloid -y
+apt install celluloid -y
 
 # ===============================
 # Developer Tools
