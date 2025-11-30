@@ -33,11 +33,34 @@ install_flatpak_app() {
 }
 
 # ===============================
+# Remove Snapd and All Snaps
+# ===============================
+remove_snapd_and_snaps() {
+    echo "🧹 Removing Snapd and all snaps..."
+    # Remove all snaps installed on the system
+    snap list | awk '{if(NR>1) print $1}' | xargs -I {} snap remove --purge {}
+    
+    # Now remove snapd itself
+    apt remove --purge -y snapd
+    # Clean up snap directories if any remain
+    rm -rf /var/cache/snapd /snap
+}
+
+# ===============================
+# Remove Ubuntu Software Updater
+# ===============================
+remove_ubuntu_software_updater() {
+    echo "🧹 Removing Ubuntu Software Updater..."
+    # Remove GNOME Software (the Ubuntu Software Updater)
+    apt remove --purge -y gnome-software
+}
+
+# ===============================
 # System Update & Base Libraries
 # ===============================
 echo "🔄 Updating system & installing packages..."
 apt update && apt upgrade -y
-apt install -y curl jq flatpak gnome-software gnome-shell gnome-shell-extensions software-properties-common libvlc-dev ffmpeg stacer
+apt install -y curl jq flatpak gnome-shell gnome-shell-extensions software-properties-common libvlc-dev ffmpeg stacer
 
 # GNOME Shell Extension Manager
 echo "🔧 Installing GNOME Extension Manager..."
@@ -75,12 +98,6 @@ if [[ "$replace_ff" =~ ^[Yy]$ ]]; then
 else
   echo "✅ Keeping Firefox."
 fi
-
-# ===============================
-# Remove Snap Store
-# ===============================
-echo "🧹 Removing Snap Store..."
-snap list | grep -q snap-store && snap remove --purge snap-store || echo "No Snap Store."
 
 # ===============================
 # Remove GNOME Document Viewer
