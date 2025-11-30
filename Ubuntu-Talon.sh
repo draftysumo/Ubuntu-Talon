@@ -109,7 +109,7 @@ apt remove -y evince || true
 # Install Celluloid Media Player
 # ===============================
 echo "🎬 Installing Celluloid..."
-install_flatpak_app "org.gnome.Celluloid"
+flatpak install celluloid -y
 
 # ===============================
 # Developer Tools
